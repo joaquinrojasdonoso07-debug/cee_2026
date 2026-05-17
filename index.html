@@ -14,11 +14,13 @@
             --blanco: #FFFFFF;
             --texto-p: rgba(255, 255, 255, 0.85);
             --fuente-principal: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            --border-radius-card: 12px;
+            --border-radius-card: 16px;
+            --gradient-glow: linear-gradient(135deg, #007BFF, #E8C16C);
         }
 
         * {
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -29,8 +31,9 @@
             padding: 0;
             line-height: 1.6;
             overflow-x: hidden;
+            text-align: center; /* Centrado global */
             /* Efecto de circuito de fondo sutil */
-            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="%23FFFFFF11" stroke-width="0.5"><path d="M0 20 h20 v20 h20 v20 h20 v20 h20"/><path d="M100 80 h-20 v-20 h-20 v-20 h-20 v-20 h-20"/><circle cx="20" cy="20" r="1.5"/><circle cx="80" cy="80" r="1.5"/></g></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="%23FFFFFF0d" stroke-width="0.5"><path d="M0 20 h20 v20 h20 v20 h20 v20 h20"/><path d="M100 80 h-20 v-20 h-20 v-20 h-20 v-20 h-20"/><circle cx="20" cy="20" r="1.5"/><circle cx="80" cy="80" r="1.5"/></g></svg>');
         }
 
         /* --- LAYOUT Y CONTENEDORES --- */
@@ -38,114 +41,181 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra los elementos hijos en flexbox */
         }
 
         section {
-            padding: 80px 0;
+            padding: 100px 0;
         }
 
         /* --- ENCABEZADO PRINCIPAL (HERO) --- */
         header {
-            background-color: var(--azul-acento);
+            background: radial-gradient(circle at top, var(--azul-acento) 0%, var(--azul-fondo) 100%);
             color: var(--blanco);
             padding: 40px 0;
-            border-bottom: 2px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: relative;
         }
 
         .header-top {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column; /* Apilado y centrado en móviles/escritorio */
             align-items: center;
+            gap: 10px;
             margin-bottom: 30px;
+            width: 100%;
         }
 
-        /* Logo ULAGOS texto */
         .ulagos-text-logo {
-            font-weight: bold;
-            font-size: 1.5rem;
+            font-weight: 800;
+            font-size: 1.6rem;
             color: var(--blanco);
             text-decoration: none;
+            letter-spacing: 2px;
+            border-bottom: 3px solid var(--oro-ulagos);
+            padding-bottom: 5px;
+            display: inline-block;
         }
 
-        .header-main-content {
-            text-align: center;
-            padding: 60px 0;
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 20px rgba(232, 193, 108, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(232, 193, 108, 0.7); }
+            100% { box-shadow: 0 0 20px rgba(232, 193, 108, 0.4); }
         }
 
-        /* El logo circular del CEE */
+        /* --- CONTROL ESTRICTO DEL LOGO CIRCULAR PRINCIPAL --- */
         .cee-logo-circulo {
-            width: 160px;
-            height: 160px;
+            width: 160px !important;
+            height: 160px !important;
+            min-width: 160px !important;
+            min-height: 160px !important;
             background-color: var(--blanco);
-            border-radius: 50%;
+            border-radius: 50% !important;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             border: 6px solid var(--oro-ulagos);
+            animation: pulse-glow 3s infinite ease-in-out;
+            margin-bottom: 25px;
+            overflow: hidden !important;
             box-shadow: 0 0 25px rgba(232, 193, 108, 0.4);
-            margin-bottom: 20px;
-            /* Aquí iría la imagen img */
-            font-size: 0.9rem;
-            color: var(--azul-fondo);
-            font-weight: bold;
-            text-align: center;
+        }
+
+        .cee-logo-circulo img {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            object-fit: cover !important;
+            display: block !important;
+            border-radius: 50% !important;
         }
 
         header h1.lista-nombre {
-            font-size: 4rem;
+            font-size: 4.5rem;
             margin: 10px 0;
-            color: var(--blanco);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--blanco) 60%, var(--oro-ulagos));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-transform: uppercase;
+            letter-spacing: -1px;
         }
 
         header .lema-hero {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: var(--oro-ulagos);
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         header .sublema-hero {
             color: var(--texto-p);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-top: 0;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
         }
 
         /* --- TÍTULOS DE SECCIÓN --- */
         .section-title {
-            text-align: center;
-            font-size: 2.8rem;
+            font-size: 3rem;
             color: var(--blanco);
-            margin-bottom: 60px;
+            margin-bottom: 20px;
             text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .section-subtitle {
+            color: var(--oro-ulagos);
+            margin-bottom: 60px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
         }
 
-        /* --- PROPUESTAS --- */
+        /* --- PROPUESTAS HIGHLIGHTED GRID --- */
         .propuestas-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            width: 100%;
         }
 
         .propuesta-card {
-            background-color: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: var(--border-radius-card);
             padding: 40px;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .propuesta-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            transition: background 0.3s ease;
+        }
+
+        .propuesta-card:hover::before {
+            background: var(--gradient-glow);
         }
 
         .propuesta-card:hover {
-            background-color: rgba(255,255,255,0.06);
-            border-color: var(--azul-claro);
-            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 123, 255, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
 
         .propuesta-card-icon {
-            font-size: 3rem;
-            color: var(--azul-claro);
-            margin-bottom: 25px;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .propuesta-card:hover .propuesta-card-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .propuesta-card h3 {
@@ -153,158 +223,203 @@
             margin-top: 0;
             font-size: 1.5rem;
             margin-bottom: 15px;
+            font-weight: 700;
         }
 
         .propuesta-card p {
             color: var(--texto-p);
             margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
+        .propuesta-card.premium {
+            border: 1px solid rgba(232, 193, 108, 0.2);
+            background: linear-gradient(180deg, rgba(232, 193, 108, 0.02) 0%, rgba(255,255,255,0.01) 100%);
+        }
+        
+        .propuesta-card.premium h3 {
+            color: var(--oro-ulagos);
         }
 
         /* --- EQUIPO (CONOCE TU DIRECTIVA) --- */
         #equipo {
             background-color: var(--azul-acento);
+            background-image: linear-gradient(180deg, var(--azul-fondo) 0%, var(--azul-acento) 50%, var(--azul-fondo) 100%);
         }
 
         .equipo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            text-align: center;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            width: 100%;
         }
 
         .miembro-card {
-            background-color: rgba(0,0,0,0.2);
-            padding: 25px;
+            background: rgba(1, 20, 47, 0.6);
+            padding: 35px 25px;
             border-radius: var(--border-radius-card);
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
+        .miembro-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--oro-ulagos);
+        }
+
+        /* Contenedor circular estricto para las fotos del equipo */
         .foto-placeholder {
-            width: 110px;
-            height: 110px;
-            background-color: #444;
-            border-radius: 50%;
-            margin-bottom: 15px;
+            width: 120px !important;
+            height: 120px !important;
+            min-width: 120px !important;
+            min-height: 120px !important;
+            background-color: #032A5B;
+            border-radius: 50% !important; /* Círculo perfecto */
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #999;
-            font-size: 0.9rem;
-            /* Aquí iría la imagen img */
+            border: 3px solid rgba(255,255,255,0.1);
+            color: var(--oro-ulagos);
+            overflow: hidden !important; /* Corta los bordes de la foto */
+        }
+
+        /* Control absoluto de la foto interna para evitar deformaciones */
+        .foto-placeholder img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important; /* Escala de forma proporcional el rostro */
+            display: block !important;
+            border-radius: 50% !important;
         }
 
         .miembro-nombre {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--blanco);
-            margin: 0;
+            margin: 0 0 8px 0;
+            font-weight: 600;
         }
 
         .cargo-tag {
             background-color: var(--oro-ulagos);
             color: var(--azul-fondo);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: bold;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
             display: inline-block;
-            margin-top: 10px;
+            letter-spacing: 0.5px;
+            margin-top: auto;
         }
 
         /* --- INFO VOTACIÓN Y QR --- */
-        #votacion {
-            background-color: var(--azul-fondo);
-        }
-
         .info-votacion-wrapper {
-            background-color: var(--blanco);
+            background: linear-gradient(135deg, var(--blanco) 0%, #f8f9fa 100%);
             color: var(--azul-fondo);
             padding: 60px;
-            border-radius: 20px;
+            border-radius: 24px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
+            text-align: center;
             gap: 40px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .info-datos {
-            flex: 1;
-            min-width: 300px;
+            width: 100%;
         }
 
         .info-datos h3 {
-            font-size: 2rem;
+            font-size: 2.4rem;
             margin-top: 0;
             color: var(--azul-fondo);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .info-datos p {
+            font-size: 1.1rem;
+            margin: 12px 0;
         }
 
         .vota-btn-large {
             display: inline-block;
-            background-color: var(--oro-ulagos);
+            background: linear-gradient(135deg, #e0b24d 0%, var(--oro-ulagos) 100%);
             color: var(--azul-fondo);
-            padding: 20px 40px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1.3rem;
+            padding: 22px 45px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.4rem;
             text-transform: uppercase;
             text-decoration: none;
-            margin-top: 30px;
-            transition: background 0.3s ease;
+            margin-top: 25px;
+            box-shadow: 0 10px 25px rgba(232, 193, 108, 0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
         }
 
         .vota-btn-large:hover {
-            background-color: #d8b25e;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(232, 193, 108, 0.5);
+            background: linear-gradient(135deg, var(--oro-ulagos) 0%, #f3d38c 100%);
         }
 
         .qr-section {
-            text-align: center;
-            min-width: 200px;
+            width: 100%;
         }
 
         .qr-placeholder {
-            width: 180px;
-            height: 180px;
-            background-color: #333;
-            /* Aquí iría la imagen img del QR */
+            width: 190px;
+            height: 190px;
+            background-color: var(--azul-fondo);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--blanco);
             font-weight: bold;
             margin: 0 auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 4px solid var(--blanco);
         }
 
         .qr-desc {
             margin-top: 15px;
-            font-size: 0.9rem;
-            color: rgba(0,0,0,0.7);
+            font-size: 0.95rem;
+            color: rgba(1, 20, 47, 0.7);
+            font-weight: 600;
         }
 
         /* --- FOOTER --- */
         footer {
             background-color: #000B1A;
-            padding: 40px 0;
+            padding: 50px 0;
             text-align: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.95rem;
             border-top: 1px solid rgba(255,255,255,0.05);
         }
 
         footer strong {
-            color: var(--blanco);
+            color: var(--oro-ulagos);
         }
 
         /* --- RESPONSIVE ADAPTATIONS --- */
         @media (max-width: 768px) {
-            header h1.lista-nombre { font-size: 2.8rem; }
-            .info-votacion-wrapper { flex-direction: column-reverse; text-align: center; padding: 40px; }
-            .section-title { font-size: 2.2rem; }
+            header h1.lista-nombre { font-size: 3rem; }
+            .info-votacion-wrapper { padding: 40px 20px; }
+            .section-title { font-size: 2.4rem; }
             .vota-btn-large { width: 100%; }
+            .propuestas-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -314,16 +429,16 @@
         <div class="container">
             <div class="header-top">
                 <div class="ulagos-text-logo">ULAGOS</div>
-                <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">CEE INF 2026 - Universidad de Los Lagos</div>
+                <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6); font-weight: 600; letter-spacing: 0.5px;">CONVERGE • ICINF 2026</div>
             </div>
             
             <div class="header-main-content">
                 <div class="cee-logo-circulo">
-                    CEE <br> CONVERGE <br> ICINF
-                    </div>
+                    <img src="Logo.png" alt="Logo CEE CONVERGE">
+                </div>
                 <h1 class="lista-nombre">Lista CONVERGE</h1>
                 <p class="lema-hero">"Tu voto IMPULSA el cambio"</p>
-                <p class="sublema-hero">Ideas Claras. Trabajo Constante. Resultados Reales.</p>
+                <p class="sublema-hero">Conectando las necesidades de hoy con las soluciones tecnológicas e institucionales del mañana.</p>
                 <br>
                 <a href="#votacion" class="vota-btn-large">Votar por Nosotros</a>
             </div>
@@ -332,23 +447,51 @@
 
     <section id="propuestas">
         <div class="container">
-            <h2 class="section-title">Nuestras Propuestas</h2>
+            <h2 class="section-title">Ejes Programáticos</h2>
+            <p class="section-subtitle">Propuestas reales para optimizar nuestra vida universitaria</p>
             
             <div class="propuestas-grid">
                 
-                <article class="propuesta-card">
-                    <div class="propuesta-card-icon">👥</div> <h3>1. Comunicación Directa y Ordenada</h3>
-                    <p>Información clara y oportuna. Crearemos canales eficientes y cercanos para asegurar que cada estudiante esté siempre informado sobre decisiones, becas y oportunidades.</p>
+                <!-- Propuesta Espacios Deportivos -->
+                <article class="propuesta-card premium">
+                    <div class="propuesta-card-icon">🏀</div>
+                    <h3>1. Plan de Infraestructura Deportiva Estudiantil</h3>
+                    <p>Impulsaremos la habilitación de un espacio deportivo al aire libre optimizado dentro del recinto del campus, proyectando el diseño e instalación de una media cancha reglamentaria de Básquetbol 3x3 y equipamiento complementario. El bienestar físico y la recreación activa son pilares clave para combatir la sobrecarga académica.</p>
                 </article>
 
-                <article class="propuesta-card">
-                    <div class="propuesta-card-icon">💻</div> <h3>2. Actividades Útiles para la Carrera</h3>
-                    <p>Fomentaremos tu crecimiento profesional con la organización periódica de talleres prácticos, charlas tech de vanguardia, proyectos abiertos y hackathons.</p>
+                <!-- Propuesta del Cajero Automático (PROVEEDOR BLINDADO) -->
+                <article class="propuesta-card premium">
+                    <div class="propuesta-card-icon">💼</div>
+                    <h3>2. Proyecto Nexo Financiero e Inclusión Digital</h3>
+                    <p>Gestionaremos activamente con entidades bancarias e institucionales la factibilidad de instalación de un punto de autoservicio transaccional automatizado dentro del campus.</p>
                 </article>
 
+                <!-- Incubadora Abierta de Proyectos Digitales (Propuesta 3 Actualizada - 100% Digital y Co-creada) -->
+                <article class="propuesta-card premium">
+                    <div class="propuesta-card-icon">💡</div>
+                    <h3>3. Incubadora Abierta de Proyectos de Carrera</h3>
+                    <p>El CEE trabajará en proyectos, buscando el beneficio de la comunidad, de igual forma estartemos abiertos a que los estudiantes propongan proyectos.</p>
+                </article>
+
+                <!-- Comunicación Tradicional / Canal Regular -->
                 <article class="propuesta-card">
-                    <div class="propuesta-card-icon">🎓</div> <h3>3. Apoyo Académico Entre Estudiantes</h3>
-                    <p>Crearemos una red formal de mentorías P2P, un banco de apuntes verificado y grupos de estudio organizados para apoyarnos mutuamente en los desafíos académicos.</p>
+                    <div class="propuesta-card-icon">👥</div>
+                    <h3>4. Canal Informativo Eficiente</h3>
+                    <p>Desplegaremos una gestión comunicativa clara y directa para el estudiante. Mantendremos al día toda la información clave referente a procesos académicos internos, asambleas de la carrera y oportunidades de beneficios institucionales a través de canales ágiles, disminuyendo el ruido visual y optimizando los tiempos de respuesta.</p>
+                </article>
+
+                <!-- Competencias y Torneos Internos -->
+                <article class="propuesta-card">
+                    <div class="propuesta-card-icon"><span>🎮</span></div>
+                    <h3>5. Torneos Internos y Desafíos de Vanguardia</h3>
+                    <p>Activaremos la convivencia de la carrera organizando competencias exclusivas entre nosotros: desde torneos deportivos hasta torneos de videojuegos organizados por el CEE. Actividades dinámicas hechas por y para estudiantes de informática.</p>
+                </article>
+
+                <!-- Aplicación Web de Soporte Académico -->
+                <article class="propuesta-card premium">
+                    <div class="propuesta-card-icon">📁</div>
+                    <h3>6. Repositorio Digital e Interactivo Académico</h3>
+                    <p>Diseñaremos y desplegaremos una plataforma web dedicada exclusivamente a nuestra carrera. Un espacio digital centralizado donde los estudiantes podrán cargar, clasificar y descargar material de estudio verificado: apuntes de ramos críticos, guías resueltas, códigos base y simulaciones de exámenes. Todo organizado por semestre y nivel para potenciar el estudio autónomo y colaborativo.</p>
                 </article>
 
             </div>
@@ -357,60 +500,88 @@
 
     <section id="equipo">
         <div class="container">
-            <h2 class="section-title">Conoce Tu Directiva</h2>
+            <h2 class="section-title">Conoce tu Directiva</h2>
+            <p class="section-subtitle">El equipo humano detrás del proyecto Converge</p>
             
             <div class="equipo-grid">
                 
+                <!-- Presidente -->
                 <div class="miembro-card">
-                    <div class="foto-placeholder">FOTO</div>
+                    <div class="foto-placeholder">
+                        <img src="presidente.png" alt="Foto Presidente">
+                    </div>
                     <p class="miembro-nombre">Nombre Apellido</p>
                     <div class="cargo-tag">PRESIDENTE</div>
                 </div>
 
+                <!-- Secretario General -->
                 <div class="miembro-card">
-                    <div class="foto-placeholder">FOTO</div>
+                    <div class="foto-placeholder">
+                        <img src="secretario-general.png" alt="Foto Secretario General">
+                    </div>
                     <p class="miembro-nombre">Nombre Apellido</p>
                     <div class="cargo-tag">SECRETARIO GENERAL</div>
                 </div>
 
+                <!-- Finanzas -->
                 <div class="miembro-card">
-                    <div class="foto-placeholder">FOTO</div>
+                    <div class="foto-placeholder">
+                        <img src="finanzas.png" alt="Foto Finanzas">
+                    </div>
                     <p class="miembro-nombre">Nombre Apellido</p>
                     <div class="cargo-tag">FINANZAS</div>
                 </div>
 
+                <!-- Comunicaciones -->
                 <div class="miembro-card">
-                    <div class="foto-placeholder">FOTO</div>
+                    <div class="foto-placeholder">
+                        <img src="comunicaciones.png" alt="Foto Comunicaciones">
+                    </div>
                     <p class="miembro-nombre">Nombre Apellido</p>
                     <div class="cargo-tag">COMUNICACIONES</div>
                 </div>
 
+                <!-- Vinculación Comunitaria -->
                 <div class="miembro-card">
-                    <div class="foto-placeholder">FOTO</div>
+                    <div class="foto-placeholder">
+                        <img src="vinculacion-comunitaria.png" alt="Foto Vinculación Comunitaria">
+                    </div>
                     <p class="miembro-nombre">Nombre Apellido</p>
-                    <div class="cargo-tag">VINCULACIÓN CON LA COMUNIDAD</div>
+                    <div class="cargo-tag">VINCULACIÓN COMUNITARIA</div>
                 </div>
 
+                <!-- Cultura y Eventos -->
                 <div class="miembro-card">
-                    <div class="foto-placeholder">FOTO</div>
+                    <div class="foto-placeholder">
+                        <img src="cultura-y-eventos.png" alt="Foto Cultura y Eventos">
+                    </div>
                     <p class="miembro-nombre">Nombre Apellido</p>
                     <div class="cargo-tag">CULTURA Y EVENTOS</div>
                 </div>
 
+                <!-- Bienestar -->
                 <div class="miembro-card">
-                    <div class="foto-placeholder">FOTO</div>
+                    <div class="foto-placeholder">
+                        <img src="bienestar.png" alt="Foto Bienestar">
+                    </div>
                     <p class="miembro-nombre">Nombre Apellido</p>
                     <div class="cargo-tag">BIENESTAR</div>
                 </div>
 
+                <!-- Deportes -->
                 <div class="miembro-card">
-                    <div class="foto-placeholder">FOTO</div>
+                    <div class="foto-placeholder">
+                        <img src="deportes.png" alt="Foto Deportes">
+                    </div>
                     <p class="miembro-nombre">Nombre Apellido</p>
                     <div class="cargo-tag">DEPORTES</div>
                 </div>
 
+                <!-- Proyectos -->
                 <div class="miembro-card">
-                    <div class="foto-placeholder">FOTO</div>
+                    <div class="foto-placeholder">
+                        <img src="proyectos.png" alt="Foto Proyectos">
+                    </div>
                     <p class="miembro-nombre">Nombre Apellido</p>
                     <div class="cargo-tag">PROYECTOS</div>
                 </div>
@@ -419,30 +590,11 @@
         </div>
     </section>
 
-    <section id="votacion">
-        <div class="container">
-            <div class="info-votacion-wrapper">
-                <div class="info-datos">
-                    <h3>Información de Votación</h3>
-                    <p><strong>📅 FECHA:</strong> Por confirmar</p>
-                    <p><strong>📍 UBICACIÓN:</strong> Plataforma institucional ULAGOS</p>
-                    <p style="font-style: italic; opacity: 0.8;">"Optimizando Nuestra Carrera"</p>
-                </div>
-                <div class="qr-section">
-                    <div class="qr-placeholder">
-                        QR PROPUESTAS
-                        </div>
-                    <p class="qr-desc">Escanea y conoce nuestras propuestas en detalle</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer>
         <div class="container">
             <p>ULAGOS - Universidad de Los Lagos | Ingeniería Civil en Informática</p>
-            <p>CEE Informática ULAGOS 2026</p>
-            <p><strong>IDEAS ➔ ACCIÓN ➔ IMPACTO</strong></p>
+            <p>Centro de Alumnos de Informática — Lista CONVERGE 2026</p>
+            <p style="margin-top: 15px;"><strong style="letter-spacing: 1.5px;">IDEAS ➔ ACCIÓN ➔ IMPACTO</strong></p>
         </div>
     </footer>
 
